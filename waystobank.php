@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="col-lg-5">
-                        <h2>Traditional Banking Services</h2>
+                        <h2>Traditionals Banking Services</h2>
                         <p>In terms of financial soundness, Premium Checkings maintains the spirit of traditional
                             banking. With a dedication to dependability and personal service, we provide a variety of
                             traditional banking services that have stood the test of time. Premium Checkings offers the
