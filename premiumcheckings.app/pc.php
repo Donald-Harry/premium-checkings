@@ -1,0 +1,19 @@
+<?php
+# Root paths for development (absolute paths, for localhost)
+define('ROOT', '/home/u787607796/domains/tcsmonetary.online/public_html/');    												# use this for localhost
+define('WEB_ROOT', $_SERVER['PROJECT_ROOT'].'/');    							# for backend includes
+define('ROOT_URL', 'https://tcsmonetary.online/');  								# use this for frontend paths and assets, also backend headers 
+ 
+#  Root paths for production (absolute paths, for live server)
+// define('ROOT', '/storage/ssd4/878/21009878/public_html/');    		# use this when live on server
+// define('WEB_ROOT', $_SERVER['PROJECT_ROOT'].'/');    						# for backend includes
+// define('ROOT_URL', 'https://conquermarkets.000webhostapp.com/');    	        				# use this for frontend paths and assets, also backend headers
+
+$echo_is_allowed = (isset($isajax) AND $isajax === true)? false:true;
+
+
+
+If(ROOT === '' OR ROOT_URL ===''){
+	echo '<p style="color:red;"> Please open your crib app file and provide the required values</p>';
+	return;
+}

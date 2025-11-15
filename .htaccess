@@ -1,0 +1,14 @@
+SetEnv APP "/home/u755862803/domains/premiumcheckings.com/premiumcheckings.app/pc.php"
+
+
+
+SetEnv PROJECT_ROOT "/home/u755862803/domains/premiumcheckings.com/public_html/"
+SetEnv HOST_URL "https://premiumcheckings.com"
+
+# ErrorDocument 404 http://localhost/conquer_markets/404.php
+
+
+
+# HTID:21760916: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
+php_value display_errors 1
+# DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:21760916:

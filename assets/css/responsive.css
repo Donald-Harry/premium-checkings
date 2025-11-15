@@ -1,0 +1,123 @@
+@media screen and (max-width: 768px) {
+    .product-section{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .feature-box{
+        border-right: none !important;
+        margin-bottom: 20px;
+    }
+    .chose-us .right-section {
+        text-align: center;
+    }
+    .chose-us .right-section .chose-icon-card {
+        left: 50%;
+        top: auto;
+        bottom: -10%;
+        transform: translateX(-50%);
+        width: max-content;
+    }
+    .rotation-animation, .chose-us .right-section .bottom-img {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .text-md-end {
+        text-align: right!important;
+    }
+    .mt-md-0 {
+        margin-top: 0!important;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .services-section {
+        right: 0%;
+        top: 7%;
+        background-position: left center;
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    .section-heading {
+        margin-bottom: 30px;
+    }
+    .section-heading__subtitle {
+        font-size: 1.125rem;
+    }
+    .service-card {
+        padding: 35px 25px;
+        box-shadow: 0px 15px 30px 0px rgba(68, 109, 255, 0.04);
+    }
+    .service-card__heading {
+        font-size: 1.375rem;
+    }
+    .service-card__desc {
+        line-height: 1.4;
+    }
+    .chose-us__content .service-list {
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+    }
+    .p-lg-10 {
+        padding: 4.5rem!important;
+    }
+}
+
+@media only screen and (min-width: 425px) and (max-width: 575px) {
+    .col-xsm-6 {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .service-card {
+        padding: 20px 10px;
+    }
+    .service-card__icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.875rem;
+    }
+    .service-card__heading {
+        font-size: 1.125rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .service-card {
+        padding: 15px 15px;
+    }
+    .chose-us__content .service-list {
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+    .navbar-brand {
+        width: 10rem;
+    }
+    .navbar-btn .main-btn{
+        border: navajowhite;
+        border-right: 2px solid;
+        font-size: 20px;
+        border-radius: unset;
+    }
+    .account-login .login-form {
+        padding: 25px;
+    }
+}
+
+@media screen and (max-width: 1199px) {
+    .services-section .services-section-overlay .img-full__left {
+        width: 100%;
+    }
+    .services-section .services-section-overlay .img-full__right {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 1399px) {
+    .chose-us .right-section .rotation-animation {
+        left: 51%;
+        bottom: 17%;
+    }
+}

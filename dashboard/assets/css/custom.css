@@ -1,0 +1,64 @@
+.navbar-brand{
+    width: 12rem;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sidebar-nav-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.sidebar-nav-wrapper {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.profileDetails{
+    color: #888ea8;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.badge {
+    font-weight: 600;
+    line-height: 1.4;
+    padding: 3px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+}
+
+.outline-badge-info {
+    color: #2196f3;
+    background-color: transparent;
+    border: 1px solid #2196f3;
+}
+
+.outline-badge-danger {
+    color: #e7515a;
+    background-color: transparent;
+    border: 1px solid #e7515a;
+}
+
+.outline-badge-secondary {
+    color: #805dca;
+    background-color: transparent;
+    border: 1px solid #805dca;
+}
+
+.btn-outline--primary {
+    color: #4634ff;
+    border-color: #4634ff;
+    transition: all 0.3s;
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+.button--group .btn {
+    margin: 2px 3px;
+}
+
+.special-box td img {
+    max-height: 77px;
+    max-width: 200px;
+}

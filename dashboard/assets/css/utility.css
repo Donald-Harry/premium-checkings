@@ -1,0 +1,83 @@
+/*------------------------------------------------- 
+My Utitlies
+---------------------------------------------------*/
+.w-fit-content{
+    width: fit-content;
+}
+
+.w-90{
+    width: 90% !important;
+}
+
+.btn-rounded {
+    border-radius: 50px;
+}
+
+.gap-5px{
+    gap: 5px;
+}
+
+.gap-10{
+    gap: 20px;
+}
+
+.gap-20{
+    gap: 20px;
+}
+
+.gap-30{
+    gap: 30px;
+}
+
+.round-15px{
+    border-radius: 15px;
+}
+
+.round-10px{
+    border-radius: 10px;
+}
+
+.pl-26px{
+    padding-left: 26px;
+}
+
+.pr-26px{
+    padding-right: 26px;
+}
+
+.py-26px{
+    padding-top: 26px;
+    padding-bottom: 26px;
+}
+
+.px-26px{
+    padding-left: 26px;
+    padding-right: 26px;
+}
+
+.pt-26px{
+    padding-top: 26px;
+}
+
+.pb-26px{
+    padding-bottom: 26px;
+}
+
+.py-40px{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.color-red{
+    color: red;
+}
+
+.min-w-1000px{
+    min-width: 1000px;
+}
+
+@media screen and (max-width: 767px) {
+    .w-sm-100{
+        min-width: -webkit-fill-available !important;
+    }
+}
