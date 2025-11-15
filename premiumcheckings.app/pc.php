@@ -1,6 +1,6 @@
 <?php
 # Root paths for development (absolute paths, for localhost)
-define('ROOT', '/home/u755862803/domains/premiumcheckings.com/public_html/');    												# use this for localhost
+define('ROOT', '/home/u787607796/domains/premiumarts.online/public_html/');    												# use this for localhost
 define('WEB_ROOT', $_SERVER['PROJECT_ROOT'].'/');    							# for backend includes
 define('ROOT_URL', 'https://premiumarts.online/');  								# use this for frontend paths and assets, also backend headers 
  
