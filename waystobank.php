@@ -37,7 +37,8 @@
         ?>
         <!--====== HEADER PART ENDS ======-->
 
-        <section class="pt-150 pb-100" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 0, 0, 0.2) url(assets/images/13566.jpg) no-repeat center; background-size: cover;">
+        <section class="pt-150 pb-100"
+            style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 0, 0, 0.2) url(assets/images/13566.jpg) no-repeat center; background-size: cover;">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -64,7 +65,9 @@
                     <div class="col-lg-4" style="align-self: center;">
                         <div class="pt-50 pb-50 pl-50 pr-50">
                             <h1 class="text-white">Ways to bank</h1>
-                            <p class="text-white">Premium Checkings offers a variety of banking choices to help you diversify. Choose the method that best fits your lifestyle, whether it's mobile banking or internet services. Your convenience and choice.</p>
+                            <p class="text-white">Premium Checkings offers a variety of banking choices to help you
+                                diversify. Choose the method that best fits your lifestyle, whether it's mobile banking
+                                or internet services. Your convenience and choice.</p>
                         </div>
                     </div>
                     <div class="col-lg-8">
@@ -83,8 +86,11 @@
                         </div>
                     </div>
                     <div class="col-lg-5">
-                        <h2>Traditional Banking Services</h2>
-                        <p>In terms of financial soundness, Premium Checkings maintains the spirit of traditional banking. With a dedication to dependability and personal service, we provide a variety of traditional banking services that have stood the test of time. Premium Checkings offers the enduring values of banking, where history meets trust.</p>
+                        <h2>Traditionals Banking Services</h2>
+                        <p>In terms of financial soundness, Premium Checkings maintains the spirit of traditional
+                            banking. With a dedication to dependability and personal service, we provide a variety of
+                            traditional banking services that have stood the test of time. Premium Checkings offers the
+                            enduring values of banking, where history meets trust.</p>
                     </div>
                 </div>
                 <div class="row mb-5 align-items-center flex-row-reverse">
@@ -95,7 +101,10 @@
                     </div>
                     <div class="col-lg-5">
                         <h2>Premium Checkings ATM Services</h2>
-                        <p>Premium Checkings's broad ATM network allows you to access your funds at any time and from any location. Our ATM services are secure and convenient, allowing for quick cash withdrawals, balance inquiries, and other transactions. Experience banking on your own terms with Premium Checkings ATMs, where convenience meets dependability.</p>
+                        <p>Premium Checkings's broad ATM network allows you to access your funds at any time and from
+                            any location. Our ATM services are secure and convenient, allowing for quick cash
+                            withdrawals, balance inquiries, and other transactions. Experience banking on your own terms
+                            with Premium Checkings ATMs, where convenience meets dependability.</p>
                     </div>
                 </div>
                 <div class="row mb-5 align-items-center">
@@ -106,7 +115,10 @@
                     </div>
                     <div class="col-lg-5">
                         <h2>Online Banking</h2>
-                        <p>Complete control at your fingertips. Premium Checkings's Online Banking completely changes the way you handle your finances. With safe access, real-time updates, and user-friendly features, you can bank from anywhere and at any time. Enhance your online banking experience with Premium Checkings, where connectivity meets convenience.</p>
+                        <p>Complete control at your fingertips. Premium Checkings's Online Banking completely changes
+                            the way you handle your finances. With safe access, real-time updates, and user-friendly
+                            features, you can bank from anywhere and at any time. Enhance your online banking experience
+                            with Premium Checkings, where connectivity meets convenience.</p>
                     </div>
                 </div>
                 <div class="row mb-5 align-items-center flex-row-reverse">
@@ -117,7 +129,10 @@
                     </div>
                     <div class="col-lg-5">
                         <h2>Mobile Banking</h2>
-                        <p>Banking on-the-go has never been easier. Manage your finances with ease using Premium Checkings's Mobile Banking on your device. Experience secure transactions, account monitoring, and personalized alerts. Your funds, your way: Premium Checkings Mobile Banking puts convenience at your fingertips.</p>
+                        <p>Banking on-the-go has never been easier. Manage your finances with ease using Premium
+                            Checkings's Mobile Banking on your device. Experience secure transactions, account
+                            monitoring, and personalized alerts. Your funds, your way: Premium Checkings Mobile Banking
+                            puts convenience at your fingertips.</p>
                     </div>
                 </div>
                 <div class="row mb-5 align-items-center">
@@ -128,7 +143,10 @@
                     </div>
                     <div class="col-lg-5">
                         <h2>Debit Card</h2>
-                        <p>Banking on-the-go has never been easier. Manage your finances with ease using Premium Checkings's Mobile Banking on your device. Experience secure transactions, account monitoring, and personalized alerts. Your funds, your way: Premium Checkings Mobile Banking puts convenience at your fingertips.</p>
+                        <p>Banking on-the-go has never been easier. Manage your finances with ease using Premium
+                            Checkings's Mobile Banking on your device. Experience secure transactions, account
+                            monitoring, and personalized alerts. Your funds, your way: Premium Checkings Mobile Banking
+                            puts convenience at your fingertips.</p>
                     </div>
                 </div>
             </div>
