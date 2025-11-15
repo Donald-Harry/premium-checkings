@@ -1,9 +1,9 @@
-SetEnv APP "/home/u755862803/domains/premiumcheckings.com/premiumcheckings.app/pc.php"
+SetEnv APP /home/u787607796/domains/premiumarts.online/public_html/premiumcheckings.app/pc.php"
 
 
 
-SetEnv PROJECT_ROOT "/home/u755862803/domains/premiumcheckings.com/public_html/"
-SetEnv HOST_URL "https://premiumcheckings.com"
+SetEnv PROJECT_ROOT "/home/u787607796/domains/premiumarts.online/public_html/"
+SetEnv HOST_URL "https://premiumarts.online/"
 
 # ErrorDocument 404 http://localhost/conquer_markets/404.php
 
