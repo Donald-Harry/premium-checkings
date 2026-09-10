@@ -27,11 +27,19 @@ if (!$conn) {
 }
 
 // SMTP Email Configuration for PHPMailer
-if (!defined('SMTP_HOST')) define('SMTP_HOST', 'smtp.gmail.com');
-if (!defined('SMTP_PORT')) define('SMTP_PORT', 587);
-if (!defined('SMTP_USERNAME')) define('SMTP_USERNAME', 'pamelappamela140@gmail.com');
-if (!defined('SMTP_PASSWORD')) define('SMTP_PASSWORD', 'vxij ymxy vwor mxsl');
-if (!defined('SMTP_SECURE')) define('SMTP_SECURE', 'tls');
-if (!defined('SMTP_AUTH')) define('SMTP_AUTH', true);
-if (!defined('SMTP_FROM_EMAIL')) define('SMTP_FROM_EMAIL', 'support@premiumcheckings.com');
-if (!defined('SMTP_FROM_NAME')) define('SMTP_FROM_NAME', 'Premium Checkings');
+if (!defined('SMTP_HOST'))
+    define('SMTP_HOST', 'smtp.gmail.com');
+if (!defined('SMTP_PORT'))
+    define('SMTP_PORT', 587);
+if (!defined('SMTP_USERNAME'))
+    define('SMTP_USERNAME', 'pamelappamela140@gmail.com');
+if (!defined('SMTP_PASSWORD'))
+    define('SMTP_PASSWORD', 'vxij ymxy vwor mxsl');
+if (!defined('SMTP_SECURE'))
+    define('SMTP_SECURE', 'tls');
+if (!defined('SMTP_AUTH'))
+    define('SMTP_AUTH', true);
+if (!defined('SMTP_FROM_EMAIL'))
+    define('SMTP_FROM_EMAIL', 'support@premiumcheckings.com');
+if (!defined('SMTP_FROM_NAME'))
+    define('SMTP_FROM_NAME', 'Premium Checkings');
