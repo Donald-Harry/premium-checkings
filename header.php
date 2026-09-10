@@ -36,7 +36,7 @@
                         </div> <!-- navbar collapse -->
                         <!-- d-none -->
                         <div class="navbar-btn  d-sm-inline-block">
-                            <a class="main-btn" data-scroll-nav="" href="<?=ROOT_URL?>account">Login</a>
+                            <a class="main-btn" data-scroll-nav="" href="account">Login</a>
                         </div>
                     </nav> <!-- navbar -->
                 </div>
