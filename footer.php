@@ -1,5 +1,5 @@
 <!-- Smartsupp Live Chat script -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 var _smartsupp = _smartsupp || {};
 _smartsupp.key = '8c56954ce582131ce4107ccf47ac22e244240568';
 window.smartsupp||(function(d) {
@@ -9,7 +9,7 @@ window.smartsupp||(function(d) {
   c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
 })(document);
 </script>
-<noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript>
+<noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript> -->
 
 <footer id="footer" class="footer_area">
     <div class="container">
@@ -19,9 +19,12 @@ window.smartsupp||(function(d) {
                     <div class="footer_about mt-50">
                         <a href="index.php">
                             <!-- <img src="assets/images/logo-no-background.svg" alt=""> -->
-                            <p style="font-size:2em; font-weight:bold">Premium<span style="color:navy">Checkings</span></p>
+                            <p style="font-size:2em; font-weight:bold">Premium<span style="color:navy">Checkings</span>
+                            </p>
                         </a>
-                        <p>NOTE: Neither MID STAND BANK nor any of its affiliates will ever request your NIN (UK), Social Security number (USA), or any other nation identification number, account details, passwords, or PINs over Facebook or Twitter.</p>
+                        <p>NOTE: Neither MID STAND BANK nor any of its affiliates will ever request your NIN (UK),
+                            Social Security number (USA), or any other nation identification number, account details,
+                            passwords, or PINs over Facebook or Twitter.</p>
                         <!-- <ul class="social">
                             <li><a href="#"><i class="lni lni-facebook-filled"></i></a></li>
                             <li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
@@ -60,7 +63,9 @@ window.smartsupp||(function(d) {
                         <ul class="link">
                             <li><a href="#">6671 Camino Montego Carlsbad, CA 92009, USA</a></li>
                             <li><a href="tel: "></a></li>
-                            <li><a href="mailto:support@premiumcheckings.com">support@premiumcheckings.com</a></li>
+                            <li><a
+                                    href="mailto:premiumcheckingssupport@aution.online">premiumcheckingssupport@aution.online</a>
+                            </li>
                             <!-- <li><a href="#">Terms</a></li>
                                 <li><a href="#">Policy</a></li> -->
                         </ul>
