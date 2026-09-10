@@ -1,8 +1,8 @@
 <?php
 # Root paths for development (absolute paths, for localhost)
-define('ROOT', '/home/u840384314/domains/usgsaauctions.com/public_html/premiumcheckings/');    												# use this for localhost
+define('ROOT', '/home/u840384314/domains/aution.online/public_html/premiumcheckings/');    												# use this for localhost
 define('WEB_ROOT', $_SERVER['PROJECT_ROOT'].'/');    							# for backend includes
-define('ROOT_URL', 'https://premiumcheckings.usgsaauctions.com/');  								# use this for frontend paths and assets, also backend headers 
+define('ROOT_URL', 'https://premiumcheckings.aution.online/');  								# use this for frontend paths and assets, also backend headers 
 
 // define('ROOT', 'C:\\wamp64\\www\\premium-checkings');    												# use this for localhost
 // define('WEB_ROOT', $_SERVER['PROJECT_ROOT'].'/');    							# for backend includes
