@@ -3,6 +3,7 @@
     include $_SERVER['APP'];
     include_once WEB_ROOT."backend/config.php";
     include_once WEB_ROOT."backend/functions.php";
+    include_once WEB_ROOT."backend/mailer.php";
 
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         $firstname = mysqli_real_escape_string($conn, $_POST["firstname"]);
@@ -216,24 +217,31 @@
                          echo json_encode(["error" => "This email or username has already been registered. Please login into your account"]);
                          exit();
                      }else{
-                         //INSERT INTO DATABASE
-                         $insert = "INSERT INTO users(first_name, last_name, username, email, password, phone, dob, country, occupation, gender, marital_status, account_type, currency, profile_pic, address, account_number, totalbal, availbal, status) VALUES ('{$firstname}','{$lastname}','{$username}','{$email}','{$password}','{$phone}','{$dob}','{$country}','{$occupation}','{$gender}','{$marital_status}','{$account_type}','{$currency}','{$renameImage}','{$address}', '{$randomNumber}', '0', '0', '1')";
+                         // Generate 6-digit OTP code
+                         $otp_code = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+
+                         // INSERT INTO DATABASE with status = '0' (pending activation)
+                         $insert = "INSERT INTO users(first_name, last_name, username, email, password, phone, dob, country, occupation, gender, marital_status, account_type, currency, profile_pic, address, account_number, totalbal, availbal, status, otp_code, otp_expiry) VALUES ('{$firstname}','{$lastname}','{$username}','{$email}','{$password}','{$phone}','{$dob}','{$country}','{$occupation}','{$gender}','{$marital_status}','{$account_type}','{$currency}','{$renameImage}','{$address}', '{$randomNumber}', '0', '0', '0', '{$otp_code}', DATE_ADD(NOW(), INTERVAL 15 MINUTE))";
              
                          $query = mysqli_query($conn, $insert);
                          if ($query) {
-                             // echo "success";
                              $user_id = mysqli_insert_id($conn);
-                             //Update the investment account
+                             // Update the investment account
                              $update_account = mysqli_query($conn, "INSERT INTO investment(user_id, deposit_balance, available_balance, withdrawal) VALUES ('{$user_id}',0,0,0)");
 
-                             echo "success";
-                             $_SESSION['login'] = true;
-                             $_SESSION['user_id'] = $user_id;
+                             // Send OTP email using PHPMailer
+                             $fullName = trim($firstname . ' ' . $lastname);
+                             send_otp_email($email, $fullName, $otp_code);
+
+                             // Store pending activation in session
+                             $_SESSION['pending_activation_user_id'] = $user_id;
+                             $_SESSION['pending_activation_email'] = $email;
+
+                             echo "otp_sent";
                              exit();
                          } else {
                              // Return an error message
                              echo "There was an error inserting the user data. Please try again.";
-                            //  echo json_encode(["error" => "There was an error inserting the user data. Please try again."]);
                              // echo "Error: ".mysqli_error($conn);
                          }
                      }

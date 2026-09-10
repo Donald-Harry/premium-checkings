@@ -43,7 +43,7 @@ include "headtag.php";
                                     <div class="slider_content">
                                         <h1 class="slider_title" data-animation="fadeInUp" data-delay="0.2s">Welcome to Premium Checkings</h1>
                                         <p data-animation="fadeInUp" data-delay="0.6s">We simplify banking so you can focus on what's most important to you: growing your business. Enjoy complete visibility of the money going into and out of your business from any device.</p>
-                                        <a class="main-btn" href="login.php" data-animation="fadeInUp" data-delay="1s">Online Banking</a>
+                                        <a class="main-btn" href="account" data-animation="fadeInUp" data-delay="1s">Online Banking</a>
                                     </div> <!-- slider content -->
                                 </div>
                             </div> <!-- row -->

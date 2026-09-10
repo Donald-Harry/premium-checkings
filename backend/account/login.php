@@ -30,10 +30,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $result = mysqli_query($conn, $check);
     $result_rows = mysqli_num_rows($result);
     if ($result_rows > 0) {
-        // echo "success";
         $row = mysqli_fetch_assoc($result);
         $user_id = $row['id'];
-        // echo json_encode(["user_id" => $user_id, "status" => "success"]);
+
+        // Check if account is activated
+        if ($row['status'] == '0') {
+            $_SESSION['pending_activation_user_id'] = $user_id;
+            $_SESSION['pending_activation_email'] = $row['email'];
+            echo "not_activated";
+            exit();
+        }
+
+        // Check if account is banned
+        if ($row['status'] == '-1') {
+            echo "This account has been banned. Please contact support.";
+            exit();
+        }
+
         echo "success";
         $_SESSION['userlogin'] = true;
         $_SESSION['user_id'] = $user_id;

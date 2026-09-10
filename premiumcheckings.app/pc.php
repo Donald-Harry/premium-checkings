@@ -1,8 +1,12 @@
 <?php
 # Root paths for development (absolute paths, for localhost)
-define('ROOT', '/home/u787607796/domains/premiumarts.online/public_html/');    												# use this for localhost
+define('ROOT', '/home/u840384314/domains/usgsaauctions.com/public_html/premiumcheckings/');    												# use this for localhost
 define('WEB_ROOT', $_SERVER['PROJECT_ROOT'].'/');    							# for backend includes
-define('ROOT_URL', 'https://premiumarts.online/');  								# use this for frontend paths and assets, also backend headers 
+define('ROOT_URL', 'https://premiumcheckings.usgsaauctions.com/');  								# use this for frontend paths and assets, also backend headers 
+
+// define('ROOT', 'C:\\wamp64\\www\\premium-checkings');    												# use this for localhost
+// define('WEB_ROOT', $_SERVER['PROJECT_ROOT'].'/');    							# for backend includes
+// define('ROOT_URL', 'http://localhost/premium-checkings/');  								# use this for frontend paths and assets, also backend headers 
  
 #  Root paths for production (absolute paths, for live server)
 // define('ROOT', '/storage/ssd4/878/21009878/public_html/');    		# use this when live on server
