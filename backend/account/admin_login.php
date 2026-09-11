@@ -38,6 +38,7 @@
             header("Location: ../../dashboard/admin/dashboard.php");
             $_SESSION['admin_login'] = true;
             $_SESSION['user_id'] = $user_id;
+            $_SESSION['admin_email'] = $row['email'];
             exit();
         }else {
             // echo json_encode(["error" => "This user does not exist in our database"]);

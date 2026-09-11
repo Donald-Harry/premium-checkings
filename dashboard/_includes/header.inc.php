@@ -72,12 +72,17 @@
                     </div> -->
                     <!-- notification end -->
                     <!-- profile start -->
+                    <?php 
+                        $header_pic = (!empty($user_row['profile_pic']) && file_exists(WEB_ROOT . "backend/account/profileImages/" . $user_row['profile_pic'])) 
+                            ? $user_row['profile_pic'] 
+                            : 'default.png';
+                    ?>
                     <div class="profile-box ml-15">
                         <button class="dropdown-toggle bg-transparent border-0" type="button" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="profile-info">
                                 <div class="info">
                                     <div class="image">
-                                        <img src="<?= ROOT_URL ?>backend/account/profileImages/<?= $user_row['profile_pic'] ?>" alt="">
+                                        <img src="<?= ROOT_URL ?>backend/account/profileImages/<?= $header_pic ?>" alt="Avatar" onerror="this.onerror=null; this.src='<?= ROOT_URL ?>backend/account/profileImages/default.png';">
                                     </div>
                                     <div>
                                         <h6 class="fw-500"><?= $user_row['first_name'] ?></h6>
@@ -89,7 +94,7 @@
                             <li>
                                 <div class="author-info flex items-center !p-1">
                                     <div class="image">
-                                        <img src="<?= ROOT_URL ?>backend/account/profileImages/<?= $user_row['profile_pic'] ?>" alt="image">
+                                        <img src="<?= ROOT_URL ?>backend/account/profileImages/<?= $header_pic ?>" alt="Avatar" onerror="this.onerror=null; this.src='<?= ROOT_URL ?>backend/account/profileImages/default.png';">
                                     </div>
                                     <div class="content">
                                         <h4 class="text-sm"><?= $user_row['first_name'] ?></h4>
@@ -99,16 +104,20 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="<?= ROOT_URL ?>dashboard/#0">
+                                <a href="<?= ROOT_URL ?>dashboard/user/profile">
                                     <i class="lni lni-user"></i> View Profile
                                 </a>
                             </li>
-                            <!-- <li>
-                                <a href="<?= ROOT_URL ?>dashboard/#0"> <i class="lni lni-cog"></i> Settings </a>
-                            </li> -->
+                            <li>
+                                <a href="<?= ROOT_URL ?>dashboard/user/profile#password">
+                                    <i class="lni lni-lock"></i> Change Password
+                                </a>
+                            </li>
                             <li class="divider"></li>
                             <li>
-                                <a href<?= ROOT_URL ?>dashboard/user/logout.php"> <i class="lni lni-exit"></i> Sign Out </a>
+                                <a href="<?= ROOT_URL ?>dashboard/user/logout.php">
+                                    <i class="lni lni-exit"></i> Sign Out
+                                </a>
                             </li>
                         </ul>
                     </div>

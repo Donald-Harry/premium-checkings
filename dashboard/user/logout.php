@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id'])) {
   unset($_SESSION['user_id']);
 
   // Redirect the user to the login page.
-  header("Location: ../../login.php");
+  header("Location: ../../account");
 }
 
 

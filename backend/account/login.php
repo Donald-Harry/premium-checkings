@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $user_id = $row['id'];
             $_SESSION['admin_login'] = true;
             $_SESSION['user_id'] = $user_id;
+            $_SESSION['admin_email'] = $row['email'];
             echo "admin_success";
             exit();
         } else {

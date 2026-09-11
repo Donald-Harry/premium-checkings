@@ -103,6 +103,77 @@ function format_number($number){
                 </div>
                 <?php
                     }
+
+                    $kyc_status = !empty($user_row['kyc_status']) ? $user_row['kyc_status'] : 'unverified';
+                    $has_kyc_docs = !empty($user_row['id_front']) && !empty($user_row['id_back']);
+                    if (!$has_kyc_docs && $kyc_status !== 'rejected') {
+                        $kyc_status = 'unverified';
+                    }
+
+                    if ($kyc_status === 'unverified') {
+                ?>
+                <div class="alert alert-warning mt-4 p-3 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 shadow-sm rounded-3 border-0" style="background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%); border-left: 5px solid #ffc107 !important;" role="alert">
+                    <div class="d-flex align-items-center gap-3">
+                        <div style="font-size: 2.2rem; color: #b78103;">
+                            <i class="lni lni-warning"></i>
+                        </div>
+                        <div>
+                            <h5 class="alert-heading mb-1 fw-bold" style="color: #664d03;">Identity Verification Required (KYC)</h5>
+                            <p class="mb-0" style="color: #7a5c00; font-size: 0.95rem;">
+                                You haven't completed your KYC verification. Please upload the <strong>front and back</strong> of your government ID card to ensure account security and avoid restrictions.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="<?= ROOT_URL ?>dashboard/user/kyc" class="btn btn-warning fw-bold px-4 py-2 text-nowrap text-dark" style="box-shadow: 0 2px 6px rgba(0,0,0,0.12);">
+                            <i class="lni lni-shield"></i> Complete KYC Now
+                        </a>
+                    </div>
+                </div>
+                <?php
+                    } elseif ($kyc_status === 'pending') {
+                ?>
+                <div class="alert alert-info mt-4 p-3 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 shadow-sm rounded-3 border-0" style="background: linear-gradient(135deg, #e8f7ff 0%, #d1ecf1 100%); border-left: 5px solid #0dcaf0 !important;" role="alert">
+                    <div class="d-flex align-items-center gap-3">
+                        <div style="font-size: 2.2rem; color: #087990;">
+                            <i class="lni lni-timer"></i>
+                        </div>
+                        <div>
+                            <h5 class="alert-heading mb-1 fw-bold" style="color: #055160;">KYC Under Review</h5>
+                            <p class="mb-0" style="color: #0c5460; font-size: 0.95rem;">
+                                Your ID card documents (front and back) have been submitted and are currently being reviewed by our compliance team.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="<?= ROOT_URL ?>dashboard/user/kyc" class="btn btn-outline-info fw-bold px-3 py-2 text-nowrap">
+                            View Submission
+                        </a>
+                    </div>
+                </div>
+                <?php
+                    } elseif ($kyc_status === 'rejected') {
+                ?>
+                <div class="alert alert-danger mt-4 p-3 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 shadow-sm rounded-3 border-0" style="background: linear-gradient(135deg, #ffeef0 0%, #f8d7da 100%); border-left: 5px solid #dc3545 !important;" role="alert">
+                    <div class="d-flex align-items-center gap-3">
+                        <div style="font-size: 2.2rem; color: #b02a37;">
+                            <i class="lni lni-cross-circle"></i>
+                        </div>
+                        <div>
+                            <h5 class="alert-heading mb-1 fw-bold" style="color: #842029;">KYC Verification Rejected</h5>
+                            <p class="mb-0" style="color: #842029; font-size: 0.95rem;">
+                                Your ID verification was not approved<?= !empty($user_row['kyc_reason']) ? ': ' . htmlspecialchars($user_row['kyc_reason']) : '. Please re-upload clear photos of the front and back of your ID card.' ?>
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="<?= ROOT_URL ?>dashboard/user/kyc" class="btn btn-danger fw-bold px-4 py-2 text-nowrap">
+                            Re-submit ID Card
+                        </a>
+                    </div>
+                </div>
+                <?php
+                    }
                 ?>
                 <!-- ========== title-wrapper start ========== -->
                 <div class="title-wrapper pt-30">

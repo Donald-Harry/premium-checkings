@@ -7,7 +7,7 @@
     <nav class="sidebar-nav">
         <ul>
             <li class="nav-item <?= (isset($location) and $location == "dashboard") ? "active" : ""; ?>">
-                <a href="<?= ROOT_URL ?>dashboard/user" class="<?= (isset($location) and $location == "withdraw") ? "active" : ""; ?>">
+                <a href="<?= ROOT_URL ?>dashboard/admin/dashboard.php" class="">
                     <span class="icon">
                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm320 96c0-26.9-16.5-49.9-40-59.3V88c0-13.3-10.7-24-24-24s-24 10.7-24 24V292.7c-23.5 9.5-40 32.5-40 59.3c0 35.3 28.7 64 64 64s64-28.7 64-64zM144 176a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm-16 80a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM400 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
@@ -21,7 +21,7 @@
             <span class="divider">
                 <hr>
             </span>
-            <li class="nav-item <?= (isset($location) and $location == "dashboard") ? "active" : ""; ?>">
+            <li class="nav-item <?= (isset($location) and $location == "users") ? "active" : ""; ?>">
                 <a href="<?= ROOT_URL ?>dashboard/admin/users" class="">
                     <span class="icon">
                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -45,22 +45,34 @@
                     </span>
                 </a>
             </li>
-            <!-- <li class="nav-item <?= (isset($location) and $location == "addUsers") ? "active" : ""; ?>">
+            <li class="nav-item <?= (isset($location) and $location == "kyc") ? "active" : ""; ?>">
                 <a href="<?= ROOT_URL ?>dashboard/admin/users/kyc-info/list.php" class="">
                     <span class="icon">
                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm320 96c0-26.9-16.5-49.9-40-59.3V88c0-13.3-10.7-24-24-24s-24 10.7-24 24V292.7c-23.5 9.5-40 32.5-40 59.3c0 35.3 28.7 64 64 64s64-28.7 64-64zM144 176a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm-16 80a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM400 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
+                            <path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378.1 428.1 230.1 432 141.4L256 66.8l0 0z"/>
                         </svg>
                     </span>
                     <span class="text">
-                        Kyc Users
+                        KYC Users
                     </span>
                 </a>
-            </li> -->
+            </li>
             
             <span class="divider">
                 <hr>
             </span>
+            <li class="nav-item <?= (isset($location) and $location == "settings") ? "active" : ""; ?>">
+                <a href="<?= ROOT_URL ?>dashboard/admin/settings.php" class="">
+                    <span class="icon">
+                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.6 8.3 53.4L8 389.7c-5.1 5.1-8 12.2-8 19.5V480c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V448h32c17.7 0 32-14.3 32-32V384h32c17.7 0 32-14.3 32-32V323.2l18.6-18.6c16.8 5.4 34.7 8.4 53.4 8.4zm48-224a48 48 0 1 1 0-96 48 48 0 1 1 0 96z"/>
+                        </svg>
+                    </span>
+                    <span class="text">
+                        Change Password
+                    </span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="<?= ROOT_URL ?>dashboard/admin/logout.php" class="">
                     <span class="icon">

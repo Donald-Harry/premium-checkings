@@ -1,3 +1,12 @@
+<?php
+if (empty($_SESSION['admin_email']) && isset($conn) && !empty($_SESSION['user_id'])) {
+    $admin_id_sess = $_SESSION['user_id'];
+    $fetch_email_q = $conn->query("SELECT email FROM admin WHERE id = '{$admin_id_sess}'");
+    if ($fetch_email_q && $r = $fetch_email_q->fetch_assoc()) {
+        $_SESSION['admin_email'] = $r['email'];
+    }
+}
+?>
 <header class="header">
     <div class="container-fluid">
         <div class="row">
@@ -33,40 +42,27 @@
                                 </div>
                             </div>
                         </button>
-                        <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile">
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profile">
                             <li>
-                                <div class="author-info flex items-center !p-1">
-                                    <div class="image">
-                                        <img src="assets/images/profile/profile-image.png" alt="image">
-                                    </div>
+                                <div class="author-info p-3 border-bottom">
                                     <div class="content">
-                                        <h4 class="text-sm">Adam Joe</h4>
-                                        <a class="text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white text-xs" href="#">Email@gmail.com</a>
+                                        <h6 class="text-sm fw-bold mb-0">Administrator</h6>
+                                        <span class="text-muted text-xs"><?= htmlspecialchars($_SESSION['admin_email'] ?? 'admin@gmail.com') ?></span>
                                     </div>
                                 </div>
                             </li>
-                            <li class="divider"></li>
                             <li>
-                                <a href="#0">
-                                    <i class="lni lni-user"></i> View Profile
+                                <a class="dropdown-item py-2" href="<?= ROOT_URL ?>dashboard/admin/settings.php">
+                                    <i class="lni lni-key me-2"></i> Change Password
                                 </a>
                             </li>
+                            <li><hr class="dropdown-divider my-1"></li>
                             <li>
-                                <a href="#0">
-                                    <i class="lni lni-alarm"></i> Notifications
+                                <a class="dropdown-item py-2 text-danger" href="<?= ROOT_URL ?>dashboard/admin/logout.php">
+                                    <i class="lni lni-exit me-2"></i> Sign Out
                                 </a>
                             </li>
-                            <li>
-                                <a href="#0"> <i class="lni lni-inbox"></i> Messages </a>
-                            </li>
-                            <li>
-                                <a href="#0"> <i class="lni lni-cog"></i> Settings </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#0"> <i class="lni lni-exit"></i> Sign Out </a>
-                            </li>
-                        </ul> -->
+                        </ul>
                     </div>
                     <!-- profile end -->
                 </div>

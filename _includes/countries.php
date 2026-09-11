@@ -246,7 +246,7 @@ $countries = array(
   array("name"=> 'Zimbabwe', "code"=> 'ZW') 
 );
 
-echo json_encode($countries);
-
-
- ?>
+if (empty(debug_backtrace())) {
+    echo json_encode($countries);
+}
+?>

@@ -29,6 +29,13 @@ if ($get_user_details->num_rows > 0) {
         $profile_pic = $row['profile_pic'];
         $address = $row['address'];
         $password = $row['password'];
+        $kyc_status = !empty($row['kyc_status']) ? $row['kyc_status'] : 'unverified';
+        $id_type = $row['id_type'] ?? '';
+        $id_number = $row['id_number'] ?? '';
+        $id_front = $row['id_front'] ?? '';
+        $id_back = $row['id_back'] ?? '';
+        $kyc_reason = $row['kyc_reason'] ?? '';
+        $kyc_submitted_at = $row['kyc_submitted_at'] ?? '';
     }
 }
 
@@ -239,6 +246,12 @@ if ($get_transaction_details->num_rows > 0) {
                         </div>
 
                         <div class="flex-fill">
+                            <button type="button" class="btn btn--primary btn--gradi btn--shadow w-100 btn-lg userStatus" data-bs-toggle="modal" data-bs-target="#kycModal">
+                                <i class="fa-solid fa-id-card"></i> KYC: <?= ucfirst($kyc_status) ?>
+                            </button>
+                        </div>
+
+                        <div class="flex-fill">
                             <button type="button" class="btn btn--warning btn--gradi btn--shadow w-100 btn-lg userStatus" data-bs-toggle="modal" data-bs-target="#createbillingcode">
                                 <i class="fa-solid fa-money-bills"></i> Create Billing Code
                             </button>
@@ -308,6 +321,113 @@ if ($get_transaction_details->num_rows > 0) {
                                             <button type="submit" id="add_pin_btn" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KYC Documents Modal -->
+                        <div class="modal fade" id="kycModal" tabindex="-1" aria-labelledby="kycModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="kycModalLabel">
+                                            <i class="fa-solid fa-id-card me-2"></i> KYC Verification Documents
+                                        </h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row mb-3">
+                                            <div class="col-sm-4">
+                                                <strong>Current Status:</strong>
+                                                <div>
+                                                    <?php if ($kyc_status === 'approved'): ?>
+                                                        <span class="badge bg-success">Approved</span>
+                                                    <?php elseif ($kyc_status === 'pending'): ?>
+                                                        <span class="badge bg-info text-dark">Pending Review</span>
+                                                    <?php elseif ($kyc_status === 'rejected'): ?>
+                                                        <span class="badge bg-danger">Rejected</span>
+                                                    <?php else: ?>
+                                                        <span class="badge bg-warning text-dark">Unverified</span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <strong>Document Type:</strong>
+                                                <div><?= htmlspecialchars($id_type ?: 'Not provided') ?></div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <strong>ID / Document #:</strong>
+                                                <div><?= htmlspecialchars($id_number ?: 'Not provided') ?></div>
+                                            </div>
+                                        </div>
+
+                                        <?php if (!empty($kyc_reason)): ?>
+                                            <div class="alert alert-danger py-2 mb-3">
+                                                <strong>Rejection Reason:</strong> <?= htmlspecialchars($kyc_reason) ?>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Front of ID Card:</label>
+                                                <?php if (!empty($id_front)): ?>
+                                                    <div class="border rounded p-2 text-center bg-light">
+                                                        <a href="<?= ROOT_URL ?>backend/account/kycDocuments/<?= $id_front ?>" target="_blank">
+                                                            <img src="<?= ROOT_URL ?>backend/account/kycDocuments/<?= $id_front ?>" class="img-fluid rounded" style="max-height: 220px; object-fit: contain;">
+                                                        </a>
+                                                        <div class="mt-2">
+                                                            <a href="<?= ROOT_URL ?>backend/account/kycDocuments/<?= $id_front ?>" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Full Image
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                <?php else: ?>
+                                                    <div class="border rounded p-4 text-center text-muted bg-light">
+                                                        <i class="fa-solid fa-image fa-2x mb-2 text-secondary"></i>
+                                                        <p class="mb-0">No front image uploaded</p>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Back of ID Card:</label>
+                                                <?php if (!empty($id_back)): ?>
+                                                    <div class="border rounded p-2 text-center bg-light">
+                                                        <a href="<?= ROOT_URL ?>backend/account/kycDocuments/<?= $id_front ?>" target="_blank">
+                                                            <img src="<?= ROOT_URL ?>backend/account/kycDocuments/<?= $id_back ?>" class="img-fluid rounded" style="max-height: 220px; object-fit: contain;">
+                                                        </a>
+                                                        <div class="mt-2">
+                                                            <a href="<?= ROOT_URL ?>backend/account/kycDocuments/<?= $id_back ?>" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Full Image
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                <?php else: ?>
+                                                    <div class="border rounded p-4 text-center text-muted bg-light">
+                                                        <i class="fa-solid fa-image fa-2x mb-2 text-secondary"></i>
+                                                        <p class="mb-0">No back image uploaded</p>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+
+                                        <?php if (!empty($id_front) || !empty($id_back)): ?>
+                                            <hr>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <button type="button" class="btn btn-success" onclick="adminKycAction('<?= $user_id ?>', 'approve')">
+                                                        <i class="fa-solid fa-check me-1"></i> Approve KYC
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger ms-2" onclick="adminKycRejectPrompt('<?= $user_id ?>')">
+                                                        <i class="fa-solid fa-xmark me-1"></i> Reject KYC
+                                                    </button>
+                                                </div>
+                                                <small class="text-muted">
+                                                    Submitted: <?= !empty($kyc_submitted_at) ? date('M d, Y H:i', strtotime($kyc_submitted_at)) : 'N/A' ?>
+                                                </small>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1165,6 +1285,84 @@ if ($get_transaction_details->num_rows > 0) {
         const selectCountry = document.getElementById("country");
         const countryToMatch = "<?= $country ?>";
         selectOptionByText(selectCountry, countryToMatch);
+
+        function adminKycAction(userId, action, reason = '') {
+            const actionText = action === 'approve' ? 'Approve' : 'Reject';
+            const confirmColor = action === 'approve' ? '#198754' : '#dc3545';
+
+            Swal.fire({
+                title: `${actionText} KYC Verification?`,
+                text: `Are you sure you want to ${action} this user's identity verification?`,
+                icon: action === 'approve' ? 'question' : 'warning',
+                showCancelButton: true,
+                confirmButtonColor: confirmColor,
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: `Yes, ${actionText}`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const formData = new FormData();
+                    formData.append('user_id', userId);
+                    formData.append('action', action);
+                    if (reason) {
+                        formData.append('reason', reason);
+                    }
+
+                    fetch('<?= ROOT_URL ?>backend/account/admin_kyc.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => res.text())
+                    .then(data => {
+                        if (data.trim() === 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Updated!',
+                                text: `KYC status has been updated.`,
+                                timer: 1500,
+                                showConfirmButton: false
+                            }).then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed',
+                                text: data
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to communicate with server.'
+                        });
+                    });
+                }
+            });
+        }
+
+        function adminKycRejectPrompt(userId) {
+            Swal.fire({
+                title: 'Reject KYC Verification',
+                text: 'Please provide a reason for rejecting this verification:',
+                input: 'textarea',
+                inputPlaceholder: 'e.g. ID card photo is blurry, back of ID is missing, or document has expired.',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                confirmButtonText: 'Reject Verification',
+                preConfirm: (reason) => {
+                    if (!reason) {
+                        Swal.showValidationMessage('Please enter a rejection reason.');
+                    }
+                    return reason;
+                }
+            }).then((result) => {
+                if (result.isConfirmed && result.value) {
+                    adminKycAction(userId, 'reject', result.value);
+                }
+            });
+        }
     </script>
 </body>
 
