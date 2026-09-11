@@ -137,41 +137,45 @@ include_once WEB_ROOT . "_includes/companyDetails.php";
             xhr.onload = () =>{
                 if(xhr.readyState === XMLHttpRequest.DONE){
                     if(xhr.status === 200){
-                        let data = xhr.response;
+                        let data = xhr.response ? xhr.response.trim() : '';
                         console.log(data);
                         if(data == 'success'){
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Success',
-                                // text: data,
-                                text: 'Login successfull',
-                                // footer: '<a href="<?= ROOT_URL ?>vendor/bank.php">Why do I have this issue?</a>',
+                                text: 'Login successful',
                                 closeOnClickOutside: false
                             }).then((result) => {
-                                window.location.href = "<?= ROOT_URL ?>dashboard/user"
+                                window.location.href = "<?= ROOT_URL ?>dashboard/user/";
                             });
-                            // function moveOn(){
-                            //     location.href = '<?= ROOT_URL ?>';
-                            // }                     
-                            // setTimeout(moveOn, 2000);
                         }else if(data == 'admin_success'){
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Success',
-                                // text: data,
                                 text: 'Welcome Admin',
-                                // footer: '<a href="<?= ROOT_URL ?>vendor/bank.php">Why do I have this issue?</a>',
                                 closeOnClickOutside: false
                             }).then((result) => {
-                                window.location.href = "<?= ROOT_URL ?>dashboard/admin/dashboard.php"
+                                window.location.href = "<?= ROOT_URL ?>dashboard/admin/dashboard.php";
+                            });
+                        }else if(data == 'not_activated'){
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Account Not Activated',
+                                text: 'Your account is pending email verification. Please enter your OTP code to activate your account.',
+                                confirmButtonText: 'Verify OTP Now',
+                                confirmButtonColor: '#0d6efd',
+                                showCancelButton: true,
+                                cancelButtonText: 'Cancel'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "<?= ROOT_URL ?>account/verify_otp.php";
+                                }
                             });
                         }else{
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                // text: data,
                                 text: data,
-                                // footer: '<a href="<?= ROOT_URL ?>vendor/bank.php">Why do I have this issue?</a>',
                             })
                         }
                     }

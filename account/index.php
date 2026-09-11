@@ -15,7 +15,7 @@ include_once WEB_ROOT . "_includes/companyDetails.php";
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- Page Title Here -->
-	<title><?= $companyName ?> || Sign Up</title>
+	<title><?= $companyName ?> || Sign In</title>
 
     <!-- FAVICONS ICON -->
 	<link rel="icon" href="<?= ROOT_URL ?><?= $favicon ?>" type="image/x-icon">
@@ -126,6 +126,15 @@ include_once WEB_ROOT . "_includes/companyDetails.php";
                                 closeOnClickOutside: false
                             }).then((result) => {
                                 window.location.href = "<?= ROOT_URL ?>dashboard/user/";
+                            });
+                        } else if (data === 'admin_success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Welcome Admin',
+                                closeOnClickOutside: false
+                            }).then((result) => {
+                                window.location.href = "<?= ROOT_URL ?>dashboard/admin/dashboard.php";
                             });
                         } else if (data === 'not_activated') {
                             Swal.fire({

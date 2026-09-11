@@ -26,6 +26,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         exit();
     }
 
+    // Check if logging in as admin (admin@gmail.com or email in admin table)
+    $clean_email = strtolower(trim($email));
+    $check_admin_email = mysqli_query($conn, "SELECT * FROM admin WHERE LOWER(email) = '{$clean_email}'");
+    $is_admin_email = ($clean_email === 'admin@gmail.com') || ($check_admin_email && mysqli_num_rows($check_admin_email) > 0);
+
+    if ($is_admin_email) {
+        $check_admin = "SELECT * FROM admin WHERE LOWER(email) = '{$clean_email}' AND password = '{$password}'";
+        $result_admin = mysqli_query($conn, $check_admin);
+        if ($result_admin && mysqli_num_rows($result_admin) > 0) {
+            $row = mysqli_fetch_assoc($result_admin);
+            $user_id = $row['id'];
+            $_SESSION['admin_login'] = true;
+            $_SESSION['user_id'] = $user_id;
+            echo "admin_success";
+            exit();
+        } else {
+            echo "Incorrect password";
+            exit();
+        }
+    }
+
     $check = "SELECT * FROM users WHERE email = '{$email}' AND password = '{$password}'";
     $result = mysqli_query($conn, $check);
     $result_rows = mysqli_num_rows($result);
@@ -51,26 +72,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION['userlogin'] = true;
         $_SESSION['user_id'] = $user_id;
         exit();
-    } else if ($email == 'admin@gmail.com') {
-        // echo $email;
-        // exit();
-        $check = "SELECT * FROM admin WHERE email = '{$email}' AND password = '{$password}'";
-        $result = mysqli_query($conn, $check);
-        $result_rows = mysqli_num_rows($result);
-        if ($result_rows > 0) {
-            // echo "success";
-            $row = mysqli_fetch_assoc($result);
-            $user_id = $row['id'];
-            // echo json_encode(["user_id" => $user_id, "status" => "success"]);
-            echo "admin_success";
-            // header("Location: ../../dashboard/admin/dashboard.php");
-            $_SESSION['admin_login'] = true;
-            $_SESSION['user_id'] = $user_id;
-            exit();
-        }
     } else {
-        // echo json_encode(["error" => "This user does not exist in our database"]);
-        echo "This user does not exist in our database";
+        // Check if email exists in users table to provide accurate feedback
+        $check_user_email = mysqli_query($conn, "SELECT * FROM users WHERE email = '{$email}'");
+        if ($check_user_email && mysqli_num_rows($check_user_email) > 0) {
+            echo "Incorrect password";
+        } else {
+            echo "This user does not exist in our database";
+        }
         exit();
     }
 }
