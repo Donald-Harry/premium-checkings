@@ -520,11 +520,11 @@ include_once WEB_ROOT . "_includes/countries.php";
 
     <div class="auth-wrapper">
         <!-- Logo Header -->
-        <div class="brand-logo-container">
+        <!-- <div class="brand-logo-container">
             <a href="<?= ROOT_URL ?>">
                 <img src="<?= ROOT_URL ?>assets/images/logo-no-background.svg" alt="<?= htmlspecialchars($companyName) ?>" onerror="this.onerror=null; this.src='<?= ROOT_URL ?>assets/images/logo/logo.png';">
             </a>
-        </div>
+        </div> -->
 
         <!-- Multi-Step Card -->
         <div class="register-card">
