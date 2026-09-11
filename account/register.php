@@ -1,301 +1,1100 @@
 <?php
 include $_SERVER['APP'];
 include_once WEB_ROOT . "_includes/companyDetails.php";
+include_once WEB_ROOT . "_includes/countries.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-     	
-   <!-- All Meta -->
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= $companyName ?> || Create Your Account</title>
 
-	<!-- Mobile Specific -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" href="<?= ROOT_URL ?><?= $favicon ?>" type="image/x-icon">
 
-	<!-- Page Title Here -->
-	<title><?= $companyName ?> || Sign Up</title>
-
-    <!-- FAVICONS ICON -->
-	<link rel="icon" href="<?= ROOT_URL ?><?= $favicon ?>" type="image/x-icon">
-
+    <!-- CSS Dependencies -->
     <link href="<?= ROOT_URL ?>assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= ROOT_URL ?>assets/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="<?= ROOT_URL ?>assets/css/sweetalert2.min.css">
-    <link href="<?= ROOT_URL ?>assets/css/style.css" rel="stylesheet">
-    <link href="<?= ROOT_URL ?>assets/css/custom.css" rel="stylesheet">
     <link href="<?= ROOT_URL ?>dashboard/assets/css/iziToast.css" rel="stylesheet">
-    <link href="<?= ROOT_URL ?>account/account.css" rel="stylesheet">
-    <!-- Custom Stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        html, body{
-            /* height: 100%; */
-            width: 100%;
+        :root {
+            --primary-navy: #0f172a;
+            --primary-navy-hover: #1e293b;
+            --accent-lime: #dcf28e;
+            --accent-lime-light: #eef8c3;
+            --accent-lime-border: #0f172a;
+            --card-border: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --bg-page: #f4f7fa;
+            --input-focus-border: #3b82f6;
+            --input-focus-shadow: rgba(59, 130, 246, 0.12);
         }
-        .account-login .login-form {
-            padding: 30px;
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 16px;
+            margin: 0;
+        }
+
+        .auth-wrapper {
+            width: 100%;
+            max-width: 660px;
+            margin: 0 auto;
+        }
+
+        .brand-logo-container {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .brand-logo-container img {
+            max-height: 48px;
+            width: auto;
+        }
+
+        .register-card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+            padding: 38px 42px;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 20px 12px;
+            }
+            .register-card {
+                padding: 24px 20px;
+                border-radius: 16px;
+            }
+        }
+
+        /* Card Header */
+        .card-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .card-header-bar h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .step-counter {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        /* Progress Bar */
+        .progress-track {
+            height: 6px;
+            background-color: #e2e8f0;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .progress-indicator {
+            height: 100%;
+            background-color: var(--primary-navy);
+            width: 25%;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 999px;
+        }
+
+        /* Step Labels */
+        .step-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 36px;
+        }
+
+        .step-label-item {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-light);
+            transition: color 0.3s ease;
+        }
+
+        .step-label-item.active {
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        /* Step Hero Section */
+        .step-hero-icon {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            /* background-color: var(--accent-lime); */
+            background-color: rgba(13, 110, 253, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px auto;
+            color: var(--primary-navy);
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.1);
+        }
+
+        .step-hero-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .step-hero-subtitle {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 28px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.45;
+        }
+
+        /* Form Inputs & Labels */
+        .form-label {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-icon-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon-group .input-icon-left {
+            position: absolute;
+            left: 16px;
+            color: #94a3b8;
+            font-size: 16px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .input-icon-group .input-icon-right {
+            position: absolute;
+            right: 16px;
+            color: #94a3b8;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 5;
+            transition: color 0.2s ease;
+        }
+
+        .input-icon-group .input-icon-right:hover {
+            color: var(--primary-navy);
+        }
+
+        .custom-form-control {
+            height: 52px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 10px;
+            padding: 0 16px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background-color: #ffffff;
+            width: 100%;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .input-icon-group .custom-form-control {
+            padding-left: 46px;
+            padding-right: 46px;
+        }
+
+        .input-icon-group.no-right-icon .custom-form-control {
+            padding-right: 16px;
+        }
+
+        .custom-form-control:focus {
+            outline: none;
+            border-color: var(--input-focus-border);
+            box-shadow: 0 0 0 4px var(--input-focus-shadow);
+            background-color: #fff;
+        }
+
+        .custom-form-control.is-invalid {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12) !important;
+        }
+
+        .custom-form-control::placeholder {
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        select.custom-form-control {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Account Type Selectable Cards */
+        .account-type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 576px) {
+            .account-type-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .account-type-card {
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .account-type-card:hover {
+            border-color: #94a3b8;
+        }
+
+        .account-type-card .card-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background-color: var(--accent-lime);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--primary-navy);
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .account-type-card .card-text-box h6 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin: 0 0 4px 0;
+        }
+
+        .account-type-card .card-text-box p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        .account-type-card .card-check-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: var(--primary-navy);
+            font-size: 18px;
+            display: none;
+        }
+
+        /* Selected State */
+        .account-type-card.selected {
+            border: 2px solid var(--accent-lime-border);
+            background-color: var(--accent-lime-light);
+        }
+
+        .account-type-card.selected .card-check-badge {
+            display: block;
+        }
+
+        .toggle-more-accounts {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            cursor: pointer;
+            margin-top: 4px;
+            margin-bottom: 22px;
+            user-select: none;
+            transition: color 0.2s ease;
+        }
+
+        .toggle-more-accounts:hover {
+            color: #3b82f6;
+        }
+
+        /* Divider & Action Buttons */
+        .step-divider {
+            border: 0;
+            height: 1px;
+            background-color: #f1f5f9;
+            margin: 28px 0 22px 0;
+        }
+
+        .step-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-prev {
+            padding: 11px 22px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 10px;
+            background-color: #ffffff;
+            color: var(--primary-navy);
+            font-weight: 600;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-prev:hover {
+            background-color: #f8fafc;
+            border-color: #94a3b8;
+            color: var(--primary-navy);
+        }
+
+        .btn-next,
+        .btn-submit {
+            padding: 11px 26px;
+            border: none;
+            border-radius: 10px;
+            background-color: #0d6efd;
+            /* background-color: var(--primary-navy); */
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            margin-left: auto;
+            text-decoration: none;
+        }
+
+        .btn-next:hover,
+        .btn-submit:hover {
+            background-color: var(--primary-navy-hover);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .btn-next:disabled,
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Step Panels Animation */
+        .step-panel {
+            display: none;
+            animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Checkbox Custom Style */
+        .terms-checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .terms-checkbox-wrapper input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: var(--primary-navy);
+        }
+
+        .terms-checkbox-wrapper label {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        .terms-checkbox-wrapper a {
+            color: var(--primary-navy);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        /* Auth Footer Links */
+        .auth-footer-links {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        .auth-footer-links a {
+            color: var(--primary-navy);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .auth-footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pin Mask Dots */
+        .pin-mask-font {
+            letter-spacing: 0.25em;
+            font-size: 1.15rem;
         }
     </style>
-
 </head>
 
 <body>
 
-    <!--*******************
-        Preloader start
-    ********************-->
-    <?php //include_once WEB_ROOT."_includes/preloader.inc.php" ?>
-    <!--*******************
-        Preloader end
-    ********************-->
+    <div class="auth-wrapper">
+        <!-- Logo Header -->
+        <div class="brand-logo-container">
+            <a href="<?= ROOT_URL ?>">
+                <img src="<?= ROOT_URL ?>assets/images/logo-no-background.svg" alt="<?= htmlspecialchars($companyName) ?>" onerror="this.onerror=null; this.src='<?= ROOT_URL ?>assets/images/logo/logo.png';">
+            </a>
+        </div>
 
+        <!-- Multi-Step Card -->
+        <div class="register-card">
+            <!-- Header bar: Title & Step Count -->
+            <div class="card-header-bar">
+                <h2>Create Your Account</h2>
+                <span class="step-counter" id="stepCounterText">Step 1 of 4</span>
+            </div>
 
-    <!--**********************************
-        Main wrapper start
-    ***********************************-->
-    <div class="account-login nope">
-        <div class="container">
-            <!-- <div class="row justify-content-center">
-                <div class="col-lg-2">
-                    <div class="logo w-100 h-100">
-                        <img src="<?= ROOT_URL ?>assets/images/logo/logo.png" class="img-fluid" alt="">
+            <!-- Progress Bar -->
+            <div class="progress-track">
+                <div class="progress-indicator" id="progressBar"></div>
+            </div>
+
+            <!-- Step Labels -->
+            <div class="step-labels">
+                <span class="step-label-item active" id="labelStep1">Personal Info</span>
+                <span class="step-label-item" id="labelStep2">Contact Details</span>
+                <span class="step-label-item" id="labelStep3">Account Setup</span>
+                <span class="step-label-item" id="labelStep4">Security</span>
+            </div>
+
+            <form id="multiStepForm" autocomplete="off">
+                <!-- STEP 1: PERSONAL INFORMATION -->
+                <div class="step-panel active" id="stepPanel1">
+                    <div class="step-hero-icon">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                    <div class="step-hero-title">Personal Information</div>
+                    <p class="step-hero-subtitle">Please provide your legal name as it appears on official documents</p>
+
+                    <div class="row g-3">
+                        <div class="col-md-6 col-12">
+                            <label class="form-label" for="firstname">Legal First Name *</label>
+                            <input type="text" class="custom-form-control" name="firstname" id="firstname" placeholder="Barry" required>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label class="form-label" for="middle_name">Middle Name</label>
+                            <input type="text" class="custom-form-control" name="middle_name" id="middle_name" placeholder="David">
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label class="form-label" for="lastname">Legal Last Name *</label>
+                            <input type="text" class="custom-form-control" name="lastname" id="lastname" placeholder="Allen" required>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label class="form-label" for="username">Username *</label>
+                            <input type="text" class="custom-form-control" name="username" id="username" placeholder="Theflash" required>
+                        </div>
+                    </div>
+
+                    <hr class="step-divider">
+
+                    <div class="step-actions">
+                        <button type="button" class="btn-next" onclick="goToStep(2)">
+                            Next <i class="fa-solid fa-chevron-right ms-1 small"></i>
+                        </button>
                     </div>
                 </div>
-            </div> -->
-            <div class="row">
-                <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
-                    <form class="card login-form inner-content" id="addUser" method="post">
-                        <div class="card-body">
-                            <div class="title">
-                                <h3>Sign Up Now</h3>
+
+                <!-- STEP 2: CONTACT DETAILS -->
+                <div class="step-panel" id="stepPanel2">
+                    <div class="step-hero-icon">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+                    <div class="step-hero-title">Contact Information</div>
+                    <p class="step-hero-subtitle">We'll use these details to communicate with you about your account</p>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="email">Email Address *</label>
+                        <div class="input-icon-group no-right-icon">
+                            <i class="fa-regular fa-envelope input-icon-left"></i>
+                            <input type="email" class="custom-form-control" name="email" id="email" placeholder="ba7864029@gmail.com" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="phone">Phone Number *</label>
+                        <div class="input-icon-group no-right-icon">
+                            <i class="fa-solid fa-phone input-icon-left"></i>
+                            <input type="tel" class="custom-form-control" name="phone" id="phone" placeholder="+2349063982344" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="country">Country *</label>
+                        <div class="input-icon-group no-right-icon">
+                            <i class="fa-solid fa-globe input-icon-left"></i>
+                            <select name="country" id="country" class="custom-form-control" required>
+                                <option value="">Select your country</option>
+                                <?php 
+                                if (isset($countries) && is_array($countries)) {
+                                    foreach ($countries as $c) {
+                                        $c_name = $c['name'] ?? '';
+                                        $selected = (strtolower($c_name) === 'nigeria') ? 'selected' : '';
+                                        echo '<option value="' . htmlspecialchars($c_name) . '" ' . $selected . '>' . htmlspecialchars($c_name) . '</option>';
+                                    }
+                                } else {
+                                    echo '<option value="Nigeria" selected>Nigeria</option>';
+                                    echo '<option value="United States">United States</option>';
+                                    echo '<option value="United Kingdom">United Kingdom</option>';
+                                    echo '<option value="Canada">Canada</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr class="step-divider">
+
+                    <div class="step-actions">
+                        <button type="button" class="btn-prev" onclick="goToStep(1)">
+                            <i class="fa-solid fa-chevron-left me-1 small"></i> Previous
+                        </button>
+                        <button type="button" class="btn-next" onclick="goToStep(3)">
+                            Next <i class="fa-solid fa-chevron-right ms-1 small"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: ACCOUNT SETUP -->
+                <div class="step-panel" id="stepPanel3">
+                    <div class="step-hero-icon">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <div class="step-hero-title">Account Setup</div>
+                    <p class="step-hero-subtitle">Choose your account type and set up your transaction PIN</p>
+
+                    <label class="form-label">Account Type *</label>
+                    <input type="hidden" name="account_type" id="selectedAccountType" value="Savings Account">
+
+                    <!-- Main Account Types -->
+                    <div class="account-type-grid">
+                        <!-- Checking Account -->
+                        <div class="account-type-card" data-account="Checking Account" onclick="selectAccountType(this, 'Checking Account')">
+                            <i class="fa-solid fa-circle-check card-check-badge"></i>
+                            <div class="card-icon-box">
+                                <i class="fa-solid fa-credit-card"></i>
                             </div>
-                            <div class="input-head">
-                                <div class="row">
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group ">
-                                            <label for="firstname" class="required">First Name</label>
-                                            <input class="form-control" type="text" name="firstname" required="" id="firstname">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group">
-                                            <label class="form-control-label required" for="lastname">Last Name</label>
-                                            <input class="form-control" type="text" name="lastname" required="" id="lastname">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group">
-                                            <label for="username">Username</label>
-                                            <input class="form-control" type="text" name="username" id="username">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group">
-                                            <label for="email" class="required">Email </label>
-                                            <input class="form-control" type="email" name="email" required="" id="email">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group">
-                                            <label class="required">Mobile Number </label>
-                                            <div class="input-group ">
-                                                <!--<span class="input-group-text mobile-code"><i class="fa-solid fa-phone"></i></span>-->
-                                                <input type="number" name="phone" value="" id="mobile" class="form-control checkUser" required="">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group ">
-                                            <label for="dob">Date of Birth</label>
-                                            <input class="form-control" type="date" name="dob" id="dob">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group ">
-                                            <label for="country">Country</label>
-                                            <select name="country" id="country" class="form-control">
-                                                <option value="nga">Nigeria</option>
-                                            <option value="AF">Afghanistan</option><option value="AX">Åland Islands</option><option value="AL">Albania</option><option value="DZ">Algeria</option><option value="AS">American Samoa</option><option value="AD">AndorrA</option><option value="AO">Angola</option><option value="AI">Anguilla</option><option value="AQ">Antarctica</option><option value="AG">Antigua and Barbuda</option><option value="AR">Argentina</option><option value="AM">Armenia</option><option value="AW">Aruba</option><option value="AU">Australia</option><option value="AT">Austria</option><option value="AZ">Azerbaijan</option><option value="BS">Bahamas</option><option value="BH">Bahrain</option><option value="BD">Bangladesh</option><option value="BB">Barbados</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BZ">Belize</option><option value="BJ">Benin</option><option value="BM">Bermuda</option><option value="BT">Bhutan</option><option value="BO">Bolivia</option><option value="BA">Bosnia and Herzegovina</option><option value="BW">Botswana</option><option value="BV">Bouvet Island</option><option value="BR">Brazil</option><option value="IO">British Indian Ocean Territory</option><option value="BN">Brunei Darussalam</option><option value="BG">Bulgaria</option><option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="KH">Cambodia</option><option value="CM">Cameroon</option><option value="CA">Canada</option><option value="CV">Cape Verde</option><option value="KY">Cayman Islands</option><option value="CF">Central African Republic</option><option value="TD">Chad</option><option value="CL">Chile</option><option value="CN">China</option><option value="CX">Christmas Island</option><option value="CC">Cocos (Keeling) Islands</option><option value="CO">Colombia</option><option value="KM">Comoros</option><option value="CG">Congo</option><option value="CD">Congo, The Democratic Republic of the</option><option value="CK">Cook Islands</option><option value="CR">Costa Rica</option><option value="CI">Cote D'Ivoire</option><option value="HR">Croatia</option><option value="CU">Cuba</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="DK">Denmark</option><option value="DJ">Djibouti</option><option value="DM">Dominica</option><option value="DO">Dominican Republic</option><option value="EC">Ecuador</option><option value="EG">Egypt</option><option value="SV">El Salvador</option><option value="GQ">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="EE">Estonia</option><option value="ET">Ethiopia</option><option value="FK">Falkland Islands (Malvinas)</option><option value="FO">Faroe Islands</option><option value="FJ">Fiji</option><option value="FI">Finland</option><option value="FR">France</option><option value="GF">French Guiana</option><option value="PF">French Polynesia</option><option value="TF">French Southern Territories</option><option value="GA">Gabon</option><option value="GM">Gambia</option><option value="GE">Georgia</option><option value="DE">Germany</option><option value="GH">Ghana</option><option value="GI">Gibraltar</option><option value="GR">Greece</option><option value="GL">Greenland</option><option value="GD">Grenada</option><option value="GP">Guadeloupe</option><option value="GU">Guam</option><option value="GT">Guatemala</option><option value="GG">Guernsey</option><option value="GN">Guinea</option><option value="GW">Guinea-Bissau</option><option value="GY">Guyana</option><option value="HT">Haiti</option><option value="HM">Heard Island and Mcdonald Islands</option><option value="VA">Holy See (Vatican City State)</option><option value="HN">Honduras</option><option value="HK">Hong Kong</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran, Islamic Republic Of</option><option value="IQ">Iraq</option><option value="IE">Ireland</option><option value="IM">Isle of Man</option><option value="IL">Israel</option><option value="IT">Italy</option><option value="JM">Jamaica</option><option value="JP">Japan</option><option value="JE">Jersey</option><option value="JO">Jordan</option><option value="KZ">Kazakhstan</option><option value="KE">Kenya</option><option value="KI">Kiribati</option><option value="KP">Korea, Democratic People'S Republic of</option><option value="KR">Korea, Republic of</option><option value="KW">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Lao People'S Democratic Republic</option><option value="LV">Latvia</option><option value="LB">Lebanon</option><option value="LS">Lesotho</option><option value="LR">Liberia</option><option value="LY">Libyan Arab Jamahiriya</option><option value="LI">Liechtenstein</option><option value="LT">Lithuania</option><option value="LU">Luxembourg</option><option value="MO">Macao</option><option value="MK">Macedonia, The Former Yugoslav Republic of</option><option value="MG">Madagascar</option><option value="MW">Malawi</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="ML">Mali</option><option value="MT">Malta</option><option value="MH">Marshall Islands</option><option value="MQ">Martinique</option><option value="MR">Mauritania</option><option value="MU">Mauritius</option><option value="YT">Mayotte</option><option value="MX">Mexico</option><option value="FM">Micronesia, Federated States of</option><option value="MD">Moldova, Republic of</option><option value="MC">Monaco</option><option value="MN">Mongolia</option><option value="MS">Montserrat</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="MM">Myanmar</option><option value="NA">Namibia</option><option value="NR">Nauru</option><option value="NP">Nepal</option><option value="NL">Netherlands</option><option value="AN">Netherlands Antilles</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NI">Nicaragua</option><option value="NE">Niger</option><option value="NG">Nigeria</option><option value="NU">Niue</option><option value="NF">Norfolk Island</option><option value="MP">Northern Mariana Islands</option><option value="NO">Norway</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PW">Palau</option><option value="PS">Palestinian Territory, Occupied</option><option value="PA">Panama</option><option value="PG">Papua New Guinea</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="PH">Philippines</option><option value="PN">Pitcairn</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="PR">Puerto Rico</option><option value="QA">Qatar</option><option value="RE">Reunion</option><option value="RO">Romania</option><option value="RU">Russian Federation</option><option value="RW">RWANDA</option><option value="SH">Saint Helena</option><option value="KN">Saint Kitts and Nevis</option><option value="LC">Saint Lucia</option><option value="PM">Saint Pierre and Miquelon</option><option value="VC">Saint Vincent and the Grenadines</option><option value="WS">Samoa</option><option value="SM">San Marino</option><option value="ST">Sao Tome and Principe</option><option value="SA">Saudi Arabia</option><option value="SN">Senegal</option><option value="CS">Serbia and Montenegro</option><option value="SC">Seychelles</option><option value="SL">Sierra Leone</option><option value="SG">Singapore</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="SB">Solomon Islands</option><option value="SO">Somalia</option><option value="ZA">South Africa</option><option value="GS">South Georgia and the South Sandwich Islands</option><option value="ES">Spain</option><option value="LK">Sri Lanka</option><option value="SD">Sudan</option><option value="SR">Suri"name"</option><option value="SJ">Svalbard and Jan Mayen</option><option value="SZ">Swaziland</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="SY">Syrian Arab Republic</option><option value="TW">Taiwan, Province of China</option><option value="TJ">Tajikistan</option><option value="TZ">Tanzania, United Republic of</option><option value="TH">Thailand</option><option value="TL">Timor-Leste</option><option value="TG">Togo</option><option value="TK">Tokelau</option><option value="TO">Tonga</option><option value="TT">Trinidad and Tobago</option><option value="TN">Tunisia</option><option value="TR">Turkey</option><option value="TM">Turkmenistan</option><option value="TC">Turks and Caicos Islands</option><option value="TV">Tuvalu</option><option value="UG">Uganda</option><option value="UA">Ukraine</option><option value="AE">United Arab Emirates</option><option value="GB">United Kingdom</option><option value="US">United States</option><option value="UM">United States Minor Outlying Islands</option><option value="UY">Uruguay</option><option value="UZ">Uzbekistan</option><option value="VU">Vanuatu</option><option value="VE">Venezuela</option><option value="VN">Viet Nam</option><option value="VG">Virgin Islands, British</option><option value="VI">Virgin Islands, U.S.</option><option value="WF">Wallis and Futuna</option><option value="EH">Western Sahara</option><option value="YE">Yemen</option><option value="ZM">Zambia</option><option value="ZW">Zimbabwe</option></select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group ">
-                                            <label for="occupation">Occupation</label>
-                                            <input class="form-control" type="text" name="occupation" id="occupation">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group flex-column">
-                                            <label for="gender" class="d-block">Gender</label>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" checked type="radio" name="gender" id="male" value="male">
-                                                <label class="form-check-label" for="male">Male</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gender" id="female" value="female">
-                                                <label class="form-check-label" for="female">Female</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gender" id="other" value="other">
-                                                <label class="form-check-label" for="other">Other</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group ">
-                                            <label for="marital_status">Marital Status</label>
-                                            <input class="form-control" type="text" name="marital_status" id="marital_status">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group ">
-                                            <label for="account_type">Account Type</label>
-                                            <input class="form-control" type="text" name="account_type" id="account_type">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group ">
-                                            <label for="password">Password</label>
-                                            <input class="form-control" type="password" name="password" id="password">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group ">
-                                            <label for="currency">Currency</label>
-                                            <select name="currency" class="form-control" id="currency">
-                                                <option value="$">Dollar</option>
-                                                <option value="€">Euro</option>
-                                                <option value="£">Pound</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-lg-12 col-xl-6">
-                                        <div class="form-group ">
-                                            <label for="upload_pic">Upload Picture</label>
-                                            <input class="form-control" type="file" name="upload_pic" id="upload_pic">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="address">Address</label>
-                                            <input class="form-control" type="text" name="address" id="address">
-                                        </div>
-                                    </div>
-                                        
-                                </div>
-                            </div>
-                            <div class="button flex-column gap-2">
-                                <button class="btn w-100" id="addbtn" type="submit">Register</button>
-                                <!-- <a class="btn alt" href="<?= ROOT_URL ?>account/signin.php">Sign In Now</a> -->
-                                <p>Have an account <a href="<?= ROOT_URL ?>account">Sign in</a></p>
+                            <div class="card-text-box">
+                                <h6>Checking Account</h6>
+                                <p>Perfect for daily transactions and bill payments</p>
                             </div>
                         </div>
-                    </form>
+
+                        <!-- Savings Account (Default Selected) -->
+                        <div class="account-type-card selected" data-account="Savings Account" onclick="selectAccountType(this, 'Savings Account')">
+                            <i class="fa-solid fa-circle-check card-check-badge"></i>
+                            <div class="card-icon-box">
+                                <i class="fa-solid fa-piggy-bank"></i>
+                            </div>
+                            <div class="card-text-box">
+                                <h6>Savings Account</h6>
+                                <p>Earn interest on your deposits</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Collapsible Additional Account Types -->
+                    <div id="moreAccountsContainer" style="display: none;">
+                        <div class="account-type-grid mt-2">
+                            <!-- Fixed Deposit -->
+                            <div class="account-type-card" data-account="Fixed Deposit" onclick="selectAccountType(this, 'Fixed Deposit')">
+                                <i class="fa-solid fa-circle-check card-check-badge"></i>
+                                <div class="card-icon-box">
+                                    <i class="fa-solid fa-vault"></i>
+                                </div>
+                                <div class="card-text-box">
+                                <h6>Fixed Deposit</h6>
+                                <p>High-yield returns for locked-term deposits</p>
+                                </div>
+                            </div>
+
+                            <!-- Business Account -->
+                            <div class="account-type-card" data-account="Business Account" onclick="selectAccountType(this, 'Business Account')">
+                                <i class="fa-solid fa-circle-check card-check-badge"></i>
+                                <div class="card-icon-box">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                </div>
+                                <div class="card-text-box">
+                                    <h6>Business Account</h6>
+                                    <p>Corporate cashflow, payroll and business operations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toggle-more-accounts" onclick="toggleMoreAccounts()">
+                        <span id="moreAccountsText">Show more account types</span>
+                        <i class="fa-solid fa-chevron-down small" id="moreAccountsIcon"></i>
+                    </div>
+
+                    <!-- Transaction PIN -->
+                    <div class="mb-3">
+                        <label class="form-label" for="pin">Transaction PIN (4 digits) *</label>
+                        <div class="input-icon-group">
+                            <i class="fa-solid fa-key input-icon-left"></i>
+                            <input type="password" class="custom-form-control pin-mask-font" name="pin" id="pin" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="••••" required>
+                            <i class="fa-regular fa-eye input-icon-right" onclick="toggleFieldMask('pin', this)"></i>
+                        </div>
+                        <small class="text-muted d-block mt-1">Your PIN will be required to authorize transactions</small>
+                    </div>
+
+                    <hr class="step-divider">
+
+                    <div class="step-actions">
+                        <button type="button" class="btn-prev" onclick="goToStep(2)">
+                            <i class="fa-solid fa-chevron-left me-1 small"></i> Previous
+                        </button>
+                        <button type="button" class="btn-next" onclick="goToStep(4)">
+                            Next <i class="fa-solid fa-chevron-right ms-1 small"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
+
+                <!-- STEP 4: SECURITY -->
+                <div class="step-panel" id="stepPanel4">
+                    <div class="step-hero-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div class="step-hero-title">Secure Your Account</div>
+                    <p class="step-hero-subtitle">Create a strong password to protect your account</p>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="password">Password *</label>
+                        <div class="input-icon-group">
+                            <i class="fa-solid fa-lock input-icon-left"></i>
+                            <input type="password" class="custom-form-control" name="password" id="password" placeholder="••••••••" required minlength="6">
+                            <i class="fa-regular fa-eye input-icon-right" onclick="toggleFieldMask('password', this)"></i>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="confirm_password">Confirm Password *</label>
+                        <div class="input-icon-group">
+                            <i class="fa-solid fa-lock input-icon-left"></i>
+                            <input type="password" class="custom-form-control" name="confirm_password" id="confirm_password" placeholder="••••••••" required minlength="6">
+                            <i class="fa-regular fa-eye input-icon-right" onclick="toggleFieldMask('confirm_password', this)"></i>
+                        </div>
+                    </div>
+
+                    <div class="terms-checkbox-wrapper">
+                        <input type="checkbox" name="terms" id="terms" required>
+                        <label for="terms">
+                            I agree to the <a href="javascript:void(0)" onclick="viewTerms()">Terms of Service</a> and <a href="javascript:void(0)" onclick="viewPrivacy()">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <hr class="step-divider">
+
+                    <div class="step-actions">
+                        <button type="button" class="btn-prev" onclick="goToStep(3)">
+                            <i class="fa-solid fa-chevron-left me-1 small"></i> Previous
+                        </button>
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <i class="fa-solid fa-check me-1"></i> Create Account
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer Sign-in prompt -->
+        <div class="auth-footer-links">
+            Already have an account? <a href="<?= ROOT_URL ?>account">Sign In</a>
         </div>
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
 
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <!-- Required vendors -->
-    <script src="<?= ROOT_URL ?>assets/js/pass-show-hide.js"></script>
+    <!-- JavaScript Dependencies -->
+    <script src="<?= ROOT_URL ?>dashboard/assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= ROOT_URL ?>dashboard/assets/js/iziToast.js"></script>
-    <script src="<?= ROOT_URL ?>assets/js/sweetalert2.min.js"></script>
     <script src="<?= ROOT_URL ?>assets/js/sweetalert2.all.min.js"></script>
+
     <script>
-        const form = document.querySelector("#addUser"),
-        addbtn = form.querySelector("#addbtn"),
-        errortext = form.querySelector("#error-txt");
+        let currentStep = 1;
+        const totalSteps = 4;
 
-        form.onsubmit = (e) =>{
-            e.preventDefault(); // preventing form from submitting
-        }
+        const progressPercent = {
+            1: '25%',
+            2: '50%',
+            3: '75%',
+            4: '100%'
+        };
 
-        addbtn.onclick = ()=>{
-            let originalText = addbtn.innerText;
-            addbtn.disabled = true;
-            addbtn.innerText = 'Processing... Please wait';
+        function updateStepUI(step) {
+            // Update counter text
+            document.getElementById('stepCounterText').innerText = `Step ${step} of ${totalSteps}`;
 
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "<?= ROOT_URL ?>backend/account/register.php", true);
-            xhr.onload = () =>{
-                if(xhr.readyState === XMLHttpRequest.DONE){
-                    if(xhr.status === 200){
-                        let data = xhr.response ? xhr.response.trim() : '';
-                        console.log(data);
-                        if(data == 'otp_sent'){
-                            iziToast.show({
-                                title: 'Success',
-                                message: 'Registration successful! An activation OTP has been sent to your email.',
-                                position: "topRight",
-                                backgroundColor: '#198754',
-                                messageColor: '#ffffff',
-                                titleColor: '#ffffff'
-                            });
-                            addbtn.innerText = 'Redirecting to verification...';
-                            setTimeout(() => {
-                                location.href = '<?= ROOT_URL ?>account/verify_otp.php';
-                            }, 1500);
-                        } else if(data == 'success'){
-                            iziToast.show({
-                                title: 'Hey',
-                                message: `Registration successful`,
-                                position: "topRight",
-                                backgroundColor: '#90EE90'
-                            });
-                            setTimeout(() => {
-                                location.href = '<?= ROOT_URL ?>dashboard/user';
-                            }, 2000);
-                        } else {
-                            addbtn.disabled = false;
-                            addbtn.innerText = originalText;
-                            iziToast.show({
-                                title: 'Error',
-                                message: data,
-                                position: "topRight",
-                                backgroundColor: '#FF474C'
-                            });
-                        }
-                    } else {
-                        addbtn.disabled = false;
-                        addbtn.innerText = originalText;
-                    }
+            // Update progress bar
+            document.getElementById('progressBar').style.width = progressPercent[step];
+
+            // Update step labels
+            for (let i = 1; i <= totalSteps; i++) {
+                const label = document.getElementById(`labelStep${i}`);
+                if (i <= step) {
+                    label.classList.add('active');
+                } else {
+                    label.classList.remove('active');
                 }
             }
-            xhr.onerror = () => {
-                addbtn.disabled = false;
-                addbtn.innerText = originalText;
-                iziToast.show({
-                    title: 'Error',
-                    message: 'Network error. Please try again.',
-                    position: "topRight",
-                    backgroundColor: '#FF474C'
-                });
-            };
-            //we have to send the form data through ajax to php
-            let formData = new FormData(form); //creating new formdata object
-            xhr.send(formData); //sending the form data to php
+
+            // Switch active panel
+            for (let i = 1; i <= totalSteps; i++) {
+                const panel = document.getElementById(`stepPanel${i}`);
+                if (i === step) {
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                }
+            }
+
+            currentStep = step;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        function validateStep(step) {
+            let isValid = true;
+            let errorMessage = '';
+
+            if (step === 1) {
+                const firstname = document.getElementById('firstname');
+                const lastname = document.getElementById('lastname');
+                const username = document.getElementById('username');
+
+                [firstname, lastname, username].forEach(el => el.classList.remove('is-invalid'));
+
+                if (!firstname.value.trim()) {
+                    firstname.classList.add('is-invalid');
+                    errorMessage = 'Please enter your legal first name.';
+                    isValid = false;
+                } else if (!lastname.value.trim()) {
+                    lastname.classList.add('is-invalid');
+                    errorMessage = 'Please enter your legal last name.';
+                    isValid = false;
+                } else if (!username.value.trim()) {
+                    username.classList.add('is-invalid');
+                    errorMessage = 'Please enter your username.';
+                    isValid = false;
+                } else if (username.value.trim().length < 3) {
+                    username.classList.add('is-invalid');
+                    errorMessage = 'Username must be at least 3 characters long.';
+                    isValid = false;
+                }
+            } else if (step === 2) {
+                const email = document.getElementById('email');
+                const phone = document.getElementById('phone');
+                const country = document.getElementById('country');
+
+                [email, phone, country].forEach(el => el.classList.remove('is-invalid'));
+
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email.value.trim() || !emailPattern.test(email.value.trim())) {
+                    email.classList.add('is-invalid');
+                    errorMessage = 'Please enter a valid email address.';
+                    isValid = false;
+                } else if (!phone.value.trim() || phone.value.trim().length < 7) {
+                    phone.classList.add('is-invalid');
+                    errorMessage = 'Please enter a valid phone number.';
+                    isValid = false;
+                } else if (!country.value.trim()) {
+                    country.classList.add('is-invalid');
+                    errorMessage = 'Please select your country.';
+                    isValid = false;
+                }
+            } else if (step === 3) {
+                const accountType = document.getElementById('selectedAccountType');
+                const pin = document.getElementById('pin');
+
+                pin.classList.remove('is-invalid');
+
+                if (!accountType.value.trim()) {
+                    errorMessage = 'Please choose an account type.';
+                    isValid = false;
+                } else if (!pin.value.trim() || !/^[0-9]{4}$/.test(pin.value.trim())) {
+                    pin.classList.add('is-invalid');
+                    errorMessage = 'Transaction PIN must be exactly 4 numeric digits.';
+                    isValid = false;
+                }
+            } else if (step === 4) {
+                const password = document.getElementById('password');
+                const confirmPassword = document.getElementById('confirm_password');
+                const terms = document.getElementById('terms');
+
+                [password, confirmPassword].forEach(el => el.classList.remove('is-invalid'));
+
+                if (!password.value || password.value.length < 6) {
+                    password.classList.add('is-invalid');
+                    errorMessage = 'Password must be at least 6 characters long.';
+                    isValid = false;
+                } else if (password.value !== confirmPassword.value) {
+                    confirmPassword.classList.add('is-invalid');
+                    errorMessage = 'Passwords do not match.';
+                    isValid = false;
+                } else if (!terms.checked) {
+                    errorMessage = 'You must agree to the Terms of Service and Privacy Policy.';
+                    isValid = false;
+                }
+            }
+
+            if (!isValid && errorMessage) {
+                iziToast.show({
+                    title: 'Attention',
+                    message: errorMessage,
+                    position: 'topRight',
+                    backgroundColor: '#ef4444',
+                    messageColor: '#ffffff',
+                    titleColor: '#ffffff',
+                    timeout: 3500
+                });
+            }
+
+            return isValid;
+        }
+
+        function goToStep(step) {
+            // If going forward, validate current step
+            if (step > currentStep) {
+                if (!validateStep(currentStep)) {
+                    return;
+                }
+            }
+            updateStepUI(step);
+        }
+
+        function selectAccountType(element, typeName) {
+            document.querySelectorAll('.account-type-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            document.getElementById('selectedAccountType').value = typeName;
+        }
+
+        function toggleMoreAccounts() {
+            const container = document.getElementById('moreAccountsContainer');
+            const text = document.getElementById('moreAccountsText');
+            const icon = document.getElementById('moreAccountsIcon');
+
+            if (container.style.display === 'none' || container.style.display === '') {
+                container.style.display = 'block';
+                text.innerText = 'Hide additional account types';
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                container.style.display = 'none';
+                text.innerText = 'Show more account types';
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+
+        function toggleFieldMask(fieldId, iconElement) {
+            const field = document.getElementById(fieldId);
+            if (field.type === 'password') {
+                field.type = 'text';
+                iconElement.classList.remove('fa-eye');
+                iconElement.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                iconElement.classList.remove('fa-eye-slash');
+                iconElement.classList.add('fa-eye');
+            }
+        }
+
+        function viewTerms() {
+            Swal.fire({
+                title: 'Terms of Service',
+                text: 'By opening an account with <?= htmlspecialchars($companyName) ?>, you agree to comply with all applicable banking regulations, maintain the confidentiality of your security credentials, and use our financial services in accordance with our terms.',
+                confirmButtonColor: '#0f172a'
+            });
+        }
+
+        function viewPrivacy() {
+            Swal.fire({
+                title: 'Privacy Policy',
+                text: 'Your privacy is paramount. <?= htmlspecialchars($companyName) ?> employs advanced 256-bit encryption and strict confidentiality measures to safeguard all personal and financial data.',
+                confirmButtonColor: '#0f172a'
+            });
+        }
+
+        // Form Submission
+        document.getElementById('multiStepForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (!validateStep(4)) {
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const originalHtml = submitBtn.innerHTML;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Creating Account...';
+
+            const formData = new FormData(this);
+
+            fetch('<?= ROOT_URL ?>backend/account/register.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.text())
+            .then(raw => {
+                const response = raw.trim();
+                console.log('Registration response:', response);
+
+                if (response === 'otp_sent') {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Account created! An activation OTP has been sent to your email.',
+                        position: 'topRight',
+                        backgroundColor: '#10b981',
+                        messageColor: '#ffffff',
+                        titleColor: '#ffffff',
+                        timeout: 3000
+                    });
+
+                    submitBtn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Redirecting...';
+                    setTimeout(() => {
+                        window.location.href = '<?= ROOT_URL ?>account/verify_otp.php';
+                    }, 1200);
+                } else if (response === 'success') {
+                    iziToast.show({
+                        title: 'Welcome',
+                        message: 'Registration successful! Redirecting to dashboard...',
+                        position: 'topRight',
+                        backgroundColor: '#10b981',
+                        messageColor: '#ffffff',
+                        titleColor: '#ffffff',
+                        timeout: 2500
+                    });
+
+                    setTimeout(() => {
+                        window.location.href = '<?= ROOT_URL ?>dashboard/user';
+                    }, 1200);
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalHtml;
+
+                    let displayError = response;
+                    try {
+                        const parsed = JSON.parse(response);
+                        if (parsed.error) displayError = parsed.error;
+                    } catch (err) {}
+
+                    iziToast.show({
+                        title: 'Registration Failed',
+                        message: displayError || 'An unexpected error occurred. Please try again.',
+                        position: 'topRight',
+                        backgroundColor: '#ef4444',
+                        messageColor: '#ffffff',
+                        titleColor: '#ffffff',
+                        timeout: 4500
+                    });
+                }
+            })
+            .catch(err => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHtml;
+                console.error(err);
+
+                iziToast.show({
+                    title: 'Network Error',
+                    message: 'Could not connect to the server. Please check your internet connection.',
+                    position: 'topRight',
+                    backgroundColor: '#ef4444',
+                    messageColor: '#ffffff',
+                    titleColor: '#ffffff',
+                    timeout: 4500
+                });
+            });
+        });
     </script>
 </body>
+
 </html>

@@ -1,17 +1,17 @@
-SetEnv APP "/home/u840384314/domains/aution.online/public_html/premiumcheckings/premiumcheckings.app/pc.php"
+# SetEnv APP "/home/u840384314/domains/aution.online/public_html/premiumcheckings/premiumcheckings.app/pc.php"
 
-# SetEnv APP "C:\wamp64\www\premium-checkings\premiumcheckings.app\pc.php"
-
-
-
-SetEnv PROJECT_ROOT "/home/u840384314/domains/aution.online/public_html/premiumcheckings/"
-
-# SetEnv PROJECT_ROOT "C:\wamp64\www\premium-checkings\"
-
-SetEnv HOST_URL "https://premiumcheckings.aution.online/"
+SetEnv APP "C:\wamp64\www\premium-checkings\premiumcheckings.app\pc.php"
 
 
-# SetEnv HOST_URL "http://localhost/premium-checkings/"    
+
+# SetEnv PROJECT_ROOT "/home/u840384314/domains/aution.online/public_html/premiumcheckings/"
+
+SetEnv PROJECT_ROOT "C:\wamp64\www\premium-checkings\"
+
+# SetEnv HOST_URL "https://premiumcheckings.aution.online/"
+
+
+SetEnv HOST_URL "http://localhost/premium-checkings/"    
 
 # ErrorDocument 404 http://localhost/conquer_markets/404.php
 
